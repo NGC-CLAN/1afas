@@ -7421,47 +7421,7 @@ function IsBackPackFull(a)
 end
 local choithuoc = tick()
 function Dig()
-    coroutine.wrap(
-        function()
-            local tool
-            for _, v in pairs(plr.Character:GetChildren()) do
-                if v:IsA("Tool") and v:FindFirstChild("ClickEvent") then
-                    tool = v
-                end
-            end
-            local s, e =
-                pcall(
-                function()
-                    if tool and getsenv and not is_sirhurt_closure and not PROTOSMASHER_LOADED then -- Sirhurt and proto argggg
-                        local t = getsenv(tool.ClientScriptMouse).collectStart
-                        t()
-                    else
-                        if tool then
-                        tool.ClickEvent:FireServer()
-                        end
-                    end
-                end
-            )
-            if e then
-                pcall(
-                    function()
-                        if tool then
-                        tool.ClickEvent:FireServer()
-                        end
-                    end
-                )
-            end
-        end
-    )()
-    pcall(
-        function()
-            if tick()-choithuoc<0.2 then 
-                workspace.NPCs.Onett.Onett["Porcelain Dipper"].ClickEvent:FireServer()
-                choithuoc=tick()
-            end            
-            --DigOther()
-        end
-    )
+game:GetService("ReplicatedStorage").Events.ToolCollect:FireServer()
 end
 
 loadstring([[
@@ -13287,6 +13247,7 @@ SpawnTable["Farm"] = function()
                                     tpT(old*CFrame.new(0,10,0), 100)
                                     SetEN("Noclip", "Sprinkler", true)
                                     wait(.8)
+                                    plr.Character.Humanoid.Jump = true
                                     game.ReplicatedStorage.Events.PlayerActivesCommand:FireServer(
                                         {["Name"] = "Sprinkler Builder"}
                                     )
@@ -13303,6 +13264,7 @@ SpawnTable["Farm"] = function()
                            
                         end
                         getgenv().SprinklerLastPlaced = tick()
+                        plr.Character.Humanoid.Jump = true
                         game.ReplicatedStorage.Events.PlayerActivesCommand:FireServer(
                             {["Name"] = "Sprinkler Builder"}
                         )
