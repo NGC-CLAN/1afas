@@ -13246,7 +13246,6 @@ SpawnTable["Farm"] = function()
                                 and Settings.Farm and ValidFarm() then
                                     tpT(old*CFrame.new(0,10,0), 100)
                                     SetEN("Noclip", "Sprinkler", true)
-                                    wait(.8)
                                     plr.Character.Humanoid.Jump = true
                                     game.ReplicatedStorage.Events.PlayerActivesCommand:FireServer(
                                         {["Name"] = "Sprinkler Builder"}
