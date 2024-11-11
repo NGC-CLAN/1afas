@@ -7427,7 +7427,7 @@ end
 loadstring([[
     function IsSprout()
         local Particles = game.Workspace.Particles
-        local Folder2 = Particles.Folder2
+        local Folder2 = game.Workspace.Sprouts
         for k, v in pairs(Folder2:GetChildren()) do
             if v.Name == "Sprout" then
                 return v
@@ -13245,6 +13245,8 @@ SpawnTable["Farm"] = function()
                                 and plr.Character:FindFirstChild("HumanoidRootPart")
                                 and Settings.Farm and ValidFarm() then
                                     tpT(old*CFrame.new(0,10,0), 100)
+                                    wait(.1)
+                                    plr.Character.Humanoid.Jump = true
                                     SetEN("Noclip", "Sprinkler", true)
                                     plr.Character.Humanoid.Jump = true
                                     game.ReplicatedStorage.Events.PlayerActivesCommand:FireServer(
