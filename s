@@ -7421,13 +7421,53 @@ function IsBackPackFull(a)
 end
 local choithuoc = tick()
 function Dig()
-game:GetService("ReplicatedStorage").Events.ToolCollect:FireServer()
+    coroutine.wrap(
+        function()
+            local tool
+            for _, v in pairs(plr.Character:GetChildren()) do
+                if v:IsA("Tool") and v:FindFirstChild("ClickEvent") then
+                    tool = v
+                end
+            end
+            local s, e =
+                pcall(
+                function()
+                    if tool and getsenv and not is_sirhurt_closure and not PROTOSMASHER_LOADED then -- Sirhurt and proto argggg
+                        local t = getsenv(tool.ClientScriptMouse).collectStart
+                        t()
+                    else
+                        if tool then
+                        tool.ClickEvent:FireServer()
+                        end
+                    end
+                end
+            )
+            if e then
+                pcall(
+                    function()
+                        if tool then
+                        tool.ClickEvent:FireServer()
+                        end
+                    end
+                )
+            end
+        end
+    )()
+    pcall(
+        function()
+            if tick()-choithuoc<0.2 then 
+                workspace.NPCs.Onett.Onett["Porcelain Dipper"].ClickEvent:FireServer()
+                choithuoc=tick()
+            end            
+            --DigOther()
+        end
+    )
 end
 
 loadstring([[
     function IsSprout()
         local Particles = game.Workspace.Particles
-        local Folder2 = game.Workspace.Sprouts
+        local Folder2 = Particles.Folder2
         for k, v in pairs(Folder2:GetChildren()) do
             if v.Name == "Sprout" then
                 return v
@@ -7491,7 +7531,7 @@ end
 function GetMemoList()
     local tab = {}
     for k, v in pairs(game.Workspace.Toys:GetChildren()) do
-        if string.match(v.Name, "Memory Match") then
+        if string.find(v.Name, "Memory Match")  then
             table.insert(tab, v)
         end
     end
@@ -13245,10 +13285,8 @@ SpawnTable["Farm"] = function()
                                 and plr.Character:FindFirstChild("HumanoidRootPart")
                                 and Settings.Farm and ValidFarm() then
                                     tpT(old*CFrame.new(0,10,0), 100)
-                                    wait(.1)
-                                    plr.Character.Humanoid.Jump = true
                                     SetEN("Noclip", "Sprinkler", true)
-                                    plr.Character.Humanoid.Jump = true
+                                    wait(.8)
                                     game.ReplicatedStorage.Events.PlayerActivesCommand:FireServer(
                                         {["Name"] = "Sprinkler Builder"}
                                     )
@@ -13265,7 +13303,6 @@ SpawnTable["Farm"] = function()
                            
                         end
                         getgenv().SprinklerLastPlaced = tick()
-                        plr.Character.Humanoid.Jump = true
                         game.ReplicatedStorage.Events.PlayerActivesCommand:FireServer(
                             {["Name"] = "Sprinkler Builder"}
                         )
