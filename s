@@ -5071,7 +5071,7 @@ end
 function GetMemoListName()
     local tab = {}
     for k, v in pairs(game.Workspace.Toys:GetChildren()) do
-        if string.match(v.Name, "Memory Match") then
+        if string.find(v.Name, "Memory Match") then
             table.insert(tab, v.Name)
         end
     end
