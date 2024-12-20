@@ -5072,9 +5072,10 @@ end
 
 function GetMemoListName()
     local tab = {}
-    for k, v in pairs(game.Workspace.Toys:GetChildren()) do
-        local name = v.Name:lower() -- Convert name to lowercase for case-insensitive matching
-        if name:find("memory match") then -- Match both "memory match" and "winter memory match"
+    local tab = {}
+    for _, v in pairs(game.Workspace.Toys:GetChildren()) do
+        -- Match specific names directly
+        if v.Name == "Memory Match" or v.Name == "Winter Memory Match" then
             table.insert(tab, v.Name)
         end
     end
@@ -7535,8 +7536,8 @@ end
 function GetMemoList()
     local tab = {}
     for _, v in pairs(game.Workspace.Toys:GetChildren()) do
-        local name = v.Name:lower() -- Convert name to lowercase for case-insensitive matching
-        if name:find("memory match") then -- Match both "memory match" and "winter memory match"
+        -- Match specific names directly
+        if v.Name == "Memory Match" or v.Name == "Winter Memory Match" then
             table.insert(tab, v)
         end
     end
