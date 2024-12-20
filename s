@@ -1,3 +1,4 @@
+
 function GetUi() 
     if getgenv().Tvk then
     if game.CoreGui:FindFirstChild("Sea Hub GUI") then
@@ -5068,15 +5069,18 @@ function TPReturner()
         end
     end
 end
+
 function GetMemoListName()
     local tab = {}
     for k, v in pairs(game.Workspace.Toys:GetChildren()) do
-        if string.find(v.Name, "Memory Match") then
+        local name = v.Name:lower() -- Convert name to lowercase for case-insensitive matching
+        if name:find("memory match") then -- Match both "memory match" and "winter memory match"
             table.insert(tab, v.Name)
         end
     end
     return tab
 end
+
  function Teleport()
     while wait() do
         pcall(function()
@@ -7530,8 +7534,9 @@ function IsBuffOn(Buff)
 end
 function GetMemoList()
     local tab = {}
-    for k, v in pairs(game.Workspace.Toys:GetChildren()) do
-        if string.find(v.Name, "Memory Match")  then
+    for _, v in pairs(game.Workspace.Toys:GetChildren()) do
+        local name = v.Name:lower() -- Convert name to lowercase for case-insensitive matching
+        if name:find("memory match") then -- Match both "memory match" and "winter memory match"
             table.insert(tab, v)
         end
     end
